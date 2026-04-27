@@ -498,23 +498,26 @@ void run_repl() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 int main(int argc, char** argv) {
-    if (argc == 2 && strcmp(argv[1], "--test") == 0) {
-        // 1. Only run tests if you explicitly type: ./minicompiler --test
+    if (argc == 1) {
+        // 1. Default behavior (no arguments): Start interactive REPL
+        run_repl();
+    } 
+    else if (argc == 2 && strcmp(argv[1], "--test") == 0) {
+        // 2. Test mode: ./minicompiler --test
         run_tests();
     } 
     else if (argc == 2) {
-        // 2. Run a specific file if you type: ./minicompiler some_other_file.txt
+        // 3. File mode: ./minicompiler math.txt (or any other filename)
         const char* filename = argv[1];
         char* source = read_file(filename);
         compile_and_run(source, 1); // 1 = verbose mode on
         free(source);
     } 
     else {
-        // 3. Default behavior if you just type: ./minicompiler
-        // It will automatically look for and run "math.txt"
-        char* source = read_file("math.txt");
-        compile_and_run(source, 1); // 1 = verbose mode on
-        free(source);
+        printf("Usage:\n");
+        printf("  ./minicompiler             (Starts interactive REPL)\n");
+        printf("  ./minicompiler --test      (Runs unit tests)\n");
+        printf("  ./minicompiler <filename>  (Compiles and runs a file)\n");
     }
     
     return 0;
