@@ -36,7 +36,7 @@ make
 Run the executable without any arguments to start the interactive loop.
 
 ```Bash
-./minicompiler
+./compiler
 ```
 Note: Type your mathematical expression at the >> prompt. Type exit to quit.
 
@@ -44,13 +44,13 @@ Note: Type your mathematical expression at the >> prompt. Type exit to quit.
 Write your math expressions in a file (e.g., math.txt) and pass the filename to the compiler.
 
 ```Bash
-./minicompiler math.txt
+./compiler math.txt
 ```
 #### 3. Run Unit Tests
 Execute the built-in test suite to ensure all compilation and VM logic is functioning correctly.
 
 ```Bash
-./minicompiler --test
+./compiler --test
 ```
 Example Pipeline Output
 Evaluating 2 + 3 * 4 generates the following pipeline view in verbose mode:
