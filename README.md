@@ -29,3 +29,60 @@ Ensure you have a standard C compiler (`gcc`) and `make` installed, then run:
 
 ```bash
 make
+```
+
+## Usage
+#### 1. Interactive Terminal (REPL)
+Run the executable without any arguments to start the interactive loop.
+
+```Bash
+./minicompiler
+```
+Note: Type your mathematical expression at the >> prompt. Type exit to quit.
+
+#### 2. Run a File
+Write your math expressions in a file (e.g., math.txt) and pass the filename to the compiler.
+
+```Bash
+./minicompiler math.txt
+```
+#### 3. Run Unit Tests
+Execute the built-in test suite to ensure all compilation and VM logic is functioning correctly.
+
+```Bash
+./minicompiler --test
+```
+Example Pipeline Output
+Evaluating 2 + 3 * 4 generates the following pipeline view in verbose mode:
+
+```Plaintext
+[1] TOKENS
+────────────────────────────────────────────────────────────
+    Token(NUMBER, 2, @0)
+    Token(PLUS, '+', @2)
+    Token(NUMBER, 3, @4)
+    Token(STAR, '*', @6)
+    Token(NUMBER, 4, @8)
+    Token(EOF, '', @9)
+
+[2] AST
+────────────────────────────────────────────────────────────
+AST
+└── Binary('+')
+    ├── Number(2)
+    └── Binary('*')
+        ├── Number(3)
+        └── Number(4)
+
+[3] STACK-MACHINE IR
+────────────────────────────────────────────────────────────
+    0:     PUSH  2          ← push literal
+    1:     PUSH  3          ← push literal
+    2:     PUSH  4          ← push literal
+    3:     MUL              ← pop 2, push result
+    4:     ADD              ← pop 2, push result
+    5:     RET              ← halt; pop result
+
+[4] RESULT
+────────────────────────────────────────────────────────────
+    2 + 3 * 4  =  14
